@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<head>
+
+<!--
+********* Including Bootstrap libraries to add a Menu Bar***********
+-->
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+
+<!-- Latest compiled and minified JavaScript -->
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script> -->
+</head>
+<!--
+********* End of  Bootstrap libraries to add a Menu Bar***********
+-->
+
+<!--
+********* Below is the styling code written by me***********
+-->
+<style>
+
+.link {
+  stroke: #ccc;
+}
+
+.node text {
+  pointer-events: none;
+  font: 10px sans-serif;
+}
+
+#left-pane {
+    float: bottom;
+    margin-left: 0px;
+    padding: 15px;
+    height: 250px;
+    width: 320px;
+    background: #eff0f1;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+    overflow: auto;
+}
+
+#left-pane.active {
+    margin-left: 0;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+	}
+	
+	.centered {
+    margin: 0 auto;
+    text-align: left;
+    width: 800px;
+	
+	}
+	.bg {
+	background-image:url("/black.jpg")
+}
+
+html, body {
+    height:100%;
+}
+
+#canvas {
+	width: 100%
+	height: 200px
+}
+
+#container{
+    position:relative; 
+    height:200px;
+}
+
+#left {
+    position:absolute;
+    left:0;
+    right:80%;
+    height: 250px;
+    background:white;
+}
+#sidebar {
+    width: 80%;
+    height: 250px;
+    float:right;
+    background:white ;
+	font-family:"Palatino Linotype", "Book Antiqua";
+   
+}
+ footer {
+	position:absolute;
+    background-color:black;
+	width: 100%;
+    color:white;
+    clear:both;
+    text-align:center;
+    padding:5px;	
+
+}
+</style>
+<body class="bg">
+
+<ul class="nav nav-pills">
+  <li role="presentation" class="active"><a href="#"><b>AJAY SADHU</b></a></li>
+  <li role="presentation"><a href="#"><b>800848391</b></a></li>
+  <li role="presentation"><a href="#"><b>Force Directed Graph - Item Similarity</b></a></li>
+</ul>
+<p>
+<!--<h4>Force Directed graph showing Similar Items</h4>-->
+</p>
+<!--
+********* End of styling code written by me***********
+-->
+<!--
+********* Including D3 and JQuery libraries for d3 Force Directed Graph and interaction ***********************
+-->
+
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js">
+
+</script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/semantic-ui/0.19.3/javascript/semantic.min.js"></script>
+
+
+<div id="canvas" >
+<script>
+
+
+// ****** Including below D3 code for Force Directed Graph from github  https://gist.github.com/mbostock/4062045 ****************************
+
+
+
+var width = window.innerWidth,
+    height = 400
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width)
+    .attr("height", height).attr("class",".center")
+	.attr("style","background-color:white");
+
+var force = d3.layout.force()
+    .gravity(.05)
+    .distance(100)
+    .charge(-100)
+    .size([width, height]);
+
+d3.json("item_details.json", function(error, json) {
+  force
+      .nodes(json.nodes)
+      .links(json.links)
+      .start();
+
+  var link = svg.selectAll(".link")
+      .data(json.links)
+    .enter().append("line")
+      .attr("class", "link");
+
+  var node = svg.selectAll(".node")
+      .data(json.nodes)
+    .enter().append("g")
+      .attr("class", "node")
+	.attr("class","center")
+
+	.call(force.drag);
+
+  node.append("image")
+      .attr("xlink:href", "https://github.com/favicon.ico")
+      .attr("x", -8)
+      .attr("y", -8)
+      .attr("width", 16)
+      .attr("height", 16);
+
+  node.append("text")
+      .attr("dx", 12)
+      .attr("dy", ".35em")
+	  .text(function(d) { return d.name });
+
+  force.on("tick", function() {
+    link.attr("x1", function(d) { return d.source.x; })
+        .attr("y1", function(d) { return d.source.y; })
+        .attr("x2", function(d) { return d.target.x; })
+        .attr("y2", function(d) { return d.target.y; });
+
+   
+    node.attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
+  });
+  // ************************** End of Code taken from github ****************************
+  
+  // ************************* Start of Interaction Code done on my  own. Using Jquery for interaction of the nodes.
+//			On click of the D3 node, The description and cost of the items are dynamically popped up on a div tag 
+//			There is a AddCart button, to add items to the card, if user is interested to buy the recommended item.  
+
+  node.on('click', function(d,i) {
+	console.log(d.name+' '+ 'interesting');
+	 $('#left-pane').text(d.name);
+	 $('#left-pane').append("<span id='item' hidden>"+d.name+'</span>');
+	 $('#left-pane').append("</br><img src ='"+d.url+"' height=150px width=150px /></br>");	 
+	 $('#left-pane').append("Cost: "+"<span id='cost'>"+d.cost+'</span>');
+	 $('#left-pane').append("</br><input type='button' id='cart' name ='cart' value='Add to Cart' height=150px width=150px onclick=addcart() /></br>");
+    $(this).children().toggleClass('active');
+    $('#left-pane').toggleClass('active');
+});
+  
+});
+
+function addcart()
+{ document.getElementById("itemlist").innerHTML = document.getElementById("itemlist").innerHTML+"<tr><td>"+document.getElementById("item").innerHTML+"</td><td>"+document.getElementById("cost").innerHTML+"</td></tr>" ;
+}
+</script>
+</div>
+<div id="menuy"> <b style="color:white"><i> Selection Description </i></b></div>
+
+<div id='container'>
+    <div id='left'><div id="left-pane" class="ui button active" data-variation=".bottom" ></div></div>
+    <div id='sidebar'>
+	<table id='itemlist' border=2 cellpadding= 10 cellspacing=2 width=300>
+	<tr><td><b>Item Name<b> </td><td><b>Cost of the Product<b></td><tr>
+	</table></div>
+    
+</div>     
+<br/><br/><br/>
+<footer>
+Drag the items to see what other users bought along with it. If interested, add to your cart.</br>
+Click on the item, to get the description.
+</footer>
+<!-- ********************************** End of  Interaction code written by me *********************************************************-->
+		</body>
+		</html>

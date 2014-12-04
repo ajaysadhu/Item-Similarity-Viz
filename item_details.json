@@ -1,0 +1,33 @@
+{
+"nodes":[
+{"name":"Bread","group":1,"url":"http://ecx.images-amazon.com/images/I/81d13n0HXgL._SX522_.jpg","cost":"$6.99"},
+{"name":"Peanut Butter","group":1,"url":"http://ecx.images-amazon.com/images/I/81Jypo0zM8L._SL1500_.jpg","cost":"$3.68"},
+{"name":"Milk","group":1,"url":"http://ecx.images-amazon.com/images/I/81yNWvL1kIL._SL1500_.jpg","cost":"$1.49"},
+{"name":"Tortillas","group":1,"url":"http://ecx.images-amazon.com/images/I/61lHVq-SxXL.jpg","cost":"$1.89"},
+{"name":"Donuts","group":1,"url":"http://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Glazed-Donut.jpg/250px-Glazed-Donut.jpg","cost":"$2.99"},
+{"name":"Cereals","group":2,"url":"http://ecx.images-amazon.com/images/I/51C9UzaHI-L.jpg","cost":"$2.98"},
+{"name":"Cheese","group":2,"url":"http://ecx.images-amazon.com/images/I/71n-ZWFcMGL._SL1404_.jpg","cost":"$2.29"},
+{"name":"Phone","group":3,"url":"http://www.technobuffalo.com/wp-content/uploads/2013/10/Nexus-5-Press-Image-005-1280x874.jpg","cost":"$600"},
+{"name":"Case","group":3,"url":"http://ecx.images-amazon.com/images/I/61OS6fXf1YL._SL1000_.jpg","cost":"$9.95"},
+{"name":"Ear phones","group":3,"url":"http://ecx.images-amazon.com/images/I/61y4HvaumML._SL1500_.jpg","cost":"$85.99"},
+{"name":"Memory Card","group":3,"url":"http://ecx.images-amazon.com/images/I/71sgCaQGpKL._SL1500_.jpg","cost":"$4.99"},
+{"name":"Battery Power Pack","group":3,"url":"http://ecx.images-amazon.com/images/I/618UJpJo%2B5L._SL1000_.jpg","cost":"$26.99"},
+{"name":"Laptop","group":4,"url":"http://ecx.images-amazon.com/images/I/41RahLLlVgL.jpg","cost":"$1335"},
+{"name":"Mouse","group":4,"url":"http://ecx.images-amazon.com/images/I/81iyq-yRwKL._SL1500_.jpg","cost":"$24.99"},
+{"name":"Keyboard","group":4,"url":"http://ecx.images-amazon.com/images/I/61zIhr7BbtL._SL1000_.jpg","cost":"$13.85"},
+{"name":"WiFi Modem","group":4,"url":"http://ecx.images-amazon.com/images/I/61AOnoIg%2BjL._SL1280_.jpg","cost":"$19.99"},
+{"name":"TV","group":5,"url":"http://ecx.images-amazon.com/images/I/81uqnHgJTJL._SL1500_.jpg","cost":"$167.99"},
+{"name":"PS3","group":5,"url":"http://ecx.images-amazon.com/images/I/41xAAzZeMbL.jpg","cost":"$199.99"},
+{"name":"Wireless Controller","group":6,"url":"http://ecx.images-amazon.com/images/I/81Q0l1t%2BaJL._SL1500_.jpg","cost":"$40.37"},
+{"name":"Camera","group":7,"url":"http://ecx.images-amazon.com/images/I/518NAK4PRQL.jpg","cost":"$300"}],
+
+"links":[{"source":1,"target":0,"value":1},
+{"source":2,"target":0,"value":4},
+{"source":3,"target":0,"value":6},{"source":4,"target":0,"value":3},
+{"source":5,"target":2,"value":15},{"source":5,"target":4,"value":3},{"source":5,"target":6,"value":20},{"source":7,"target":8,"value":100},
+{"source":7,"target":9,"value":80},{"source":7,"target":10,"value":110},{"source":7,"target":11,"value":20},{"source":8,"target":10,"value":3},
+{"source":12,"target":13,"value":120},{"source":12,"target":14,"value":30},{"source":12,"target":15,"value":25},{"source":12,"target":9,"value":10},
+{"source":16,"target":17,"value":9},{"source":17,"target":10,"value":25},
+{"source":17,"target":18,"value":9},{"source":19,"target":18,"value":80},{"source":19,"target":10,"value":100}
+]
+}
